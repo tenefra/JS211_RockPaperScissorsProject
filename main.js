@@ -19,20 +19,24 @@ const rockPaperScissors = (hand1, hand2) => {
   hand2 = hand2.toLowerCase().trim()
 
   //In the case of a tie
+  if ((hand1 != "rock" && hand1 != "paper" && hand1 != "scissors") || (hand2 != "rock" && hand2 != "paper" && hand2 != "scissors")) {
+    return "Please type rock, paper, or scissors as your input."
+    getPrompt()
+  }
+
+  //In the case of a tie
   if (hand1 === hand2) {
     return "It's a tie!"
   }
 
-  rock(hand1, hand2)
-
   //If player 1 throws rock
-  // if (hand1 === "rock") {
-  //   if (hand2 == "scissors") {
-  //     return "Hand one wins!"
-  //   } else {
-  //     return "Hand two wins!"
-  //   }
-  // }
+  if (hand1 === "rock") {
+    if (hand2 == "scissors") {
+      return "Hand one wins!"
+    } else {
+      return "Hand two wins!"
+    }
+  }
 
   //If player 1 throws paper
   if (hand1 === "paper") {
@@ -46,16 +50,6 @@ const rockPaperScissors = (hand1, hand2) => {
   //If player 1 throws scissors
   if (hand1 === "scissors") {
     if (hand2 == "paper") {
-      return "Hand one wins!"
-    } else {
-      return "Hand two wins!"
-    }
-  }
-}
-
-const rock = (hand1, hand2) => {
-  if (hand1 === "rock") {
-    if (hand2 == "scissors") {
       return "Hand one wins!"
     } else {
       return "Hand two wins!"
@@ -95,6 +89,11 @@ if (typeof describe === "function") {
       assert.equal(rockPaperScissors("rOcK", " paper "), "Hand two wins!")
       assert.equal(rockPaperScissors("Paper", "SCISSORS"), "Hand two wins!")
       assert.equal(rockPaperScissors("rock ", "sCiSsOrs"), "Hand one wins!")
+    })
+    it("should detect empty input and prompt user to re-enter the input", () => {
+      assert.equal(rockPaperScissors("", ""), "Please type rock, paper, or scissors as your input.")
+      assert.equal(rockPaperScissors("rock", ""), "Please type rock, paper, or scissors as your input.")
+      assert.equal(rockPaperScissors("rock", "ro"), "Please type rock, paper, or scissors as your input.")
     })
   })
 } else {
